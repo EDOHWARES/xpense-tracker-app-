@@ -1,9 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import FRF from "./FRF";
+import FRL from "./FRL";
 
 const Dashboard = () => {
-  const { logout, isLoading, error, isAuthenticated } = useAuth0();
+  const { logout, isLoading, error, isAuthenticated, user } = useAuth0();
 
   if (error) {
     return <div>{error}</div>;
@@ -33,8 +35,15 @@ const Dashboard = () => {
   return (
     <>
       <div>
-        <h1 className="text-3xl">Dashboard</h1>
-        {isAuthenticated && <button onClick={() => logout()}>Sign Out</button>}
+        <div>
+          <p>{user?.name || 'user'}</p>
+          {isAuthenticated && <button onClick={() => logout()}>Sign Out</button>}
+        </div>
+        
+        <div>
+          <FRF />
+          <FRL />
+        </div>
       </div>
     </>
   );
